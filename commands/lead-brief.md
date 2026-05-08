@@ -30,33 +30,34 @@ Gather from the local files:
 - **From the SIG entry in `pipeline.md`:** signal type, captured date, contact details, signal context, drafting angle, notes, meeting time/date.
 - **From `sent-log.md`:** every touch sent + every reply received. Read the verbatim messages — *what* they replied with tells you their language and what they care about.
 
-## Step 3: Pull from connectors (whichever are available)
+## Step 3: Pull contact + company context — delegate to contact-researcher
 
-Check `user-context.md` for what's connected. For each:
+Instead of doing CRM + Gmail + web pulls inline (which bloats this conversation's context), delegate the dossier to the `contact-researcher` subagent.
 
-### CRM (HubSpot / Salesforce / etc.)
-Look up the contact. Pull:
-- Lifecycle stage, deal stage, owner.
-- All prior activity (notes, emails, calls, meetings).
-- Any associated deals (open/closed, amounts, stages).
-- Company record — size, revenue, industry, recent activity.
+**Use the Task tool with `subagent_type="contact-researcher"`.** Pass:
 
-If the contact wasn't already in the CRM and you logged them via `/lead-log`, the CRM may only have the signal-driven note + email. Note that gap explicitly in the brief — "no prior CRM history beyond this signal."
+- **Contact name** + email (from the SIG entry)
+- **Company name** (from the SIG entry)
+- **Purpose:** `pre-call-brief`
+- **Time horizon:** 180 days (briefs benefit from a longer lookback than first-touch outreach)
 
-### Gmail (if connected)
-Search threads with the contact's email. Pull:
-- Last message exchanged with anyone at the user's company (not just the user).
-- Any prior topics discussed.
-- Tone of prior exchange.
+The agent returns:
+- **Contact Snapshot** — title, current company, lifecycle, owner, time-in-role
+- **Relationship History** — last email, last meeting, open deals, cumulative touches
+- **Recent Public Signals** — job changes, funding/press, LinkedIn activity
+- **Three Talking Points** — signal-tied seeds (you'll likely use these as raw material for Step 4's Talking Points section, but rewrite them in your own framing)
+- **Suggested Next Step** — informs Step 4's "Soft next step" section
+- **Confidence & Gaps** — flag anything missing (e.g., "no Gmail connector — relationship history limited")
 
-### Web research (always available)
-Use WebSearch + WebFetch:
-- Search "[contact name] [company]" — find their LinkedIn, recent press, recent posts.
-- Search "[company] news 2026" — recent funding, hires, product launches, controversies.
-- Fetch the company's homepage + about page for current positioning.
-- If the contact has a public Twitter/X handle, scan recent posts for tone and current focus.
+### Use the dossier as raw material for Step 4
 
-Cap web research at 5 minutes / 5 searches. The goal is fresh context, not a full dossier.
+Don't paste the dossier into the brief verbatim. Step 4 has its own structure (Who you're meeting, The company, Signal recap, Their reply analysis, etc.). Use the dossier's findings as inputs to those sections — your job is to synthesize, not relay.
+
+The dossier and the local SIG context (signal recap, sent-log, the verbatim reply) are the two main inputs. If they conflict (e.g., dossier says they're VP Marketing but the signal captured them as Director), trust the dossier — it's pulled from current data — and note the discrepancy in the brief.
+
+### If contact-researcher is not available
+
+If the agent isn't registered, fall back to inline pulls (CRM lookup, Gmail search, 3-5 web searches). Tell the user once: "Heads up — `contact-researcher` isn't available. Briefs are slower and noisier without it. Install the lead-engine plugin via the BrightWayAI marketplace if you haven't." Then proceed inline.
 
 ## Step 4: Synthesize the brief
 

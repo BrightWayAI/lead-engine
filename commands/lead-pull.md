@@ -71,6 +71,34 @@ For each candidate signal:
 2. **Disqualify** — apply the disqualifier rules from `user-context.md`. Drop anything that hits a disqualifier.
 3. **Score** — assign High / Medium / Low using the rubric in `seven-signals.md` and the user's signal-priority weighting from `user-context.md`. A signal type the user marked "high priority" should bias scoring up.
 
+## Step 3.5: (Optional) Enrich the top 10 via contact-researcher
+
+Apollo signals are net-new and often have thin context — title, company, signal type, but not "what does this person actually post about" or "did the user already cross paths with them." For the top 10 by score, optionally enrich each via the `contact-researcher` subagent.
+
+**This step is opt-in.** It costs more tokens and time. Skip if:
+- The user passed `--no-enrich`.
+- The pull surfaced fewer than 5 signals (just append; enrichment isn't worth it).
+- The user is doing a quick refresh and just wants to see what's new.
+
+**Run enrichment when:**
+- The user said "enrich" or "deep pull" or asked for context-rich signals.
+- The pull surfaced 10+ signals and the top ones are high-priority — enrichment sharpens drafting and prevents wasted DMs on bad-fit contacts.
+
+To enrich, for each of the top 10 signals (cap at 10 — don't go deeper):
+
+**Use the Task tool with `subagent_type="contact-researcher"`.** Pass:
+- **Contact name** + email (from Apollo)
+- **Company name** (from Apollo)
+- **Purpose:** `outreach`
+- **Time horizon:** 90 days
+
+For each returned dossier, augment the SIG entry's `**Signal context:**` and `**Drafting angle:**` fields:
+- **Signal context:** keep the Apollo data, add a 1-line summary of public signals from the dossier (e.g., "Apollo: joined Acme as VP Growth on 2026-04-15. Recent: posted last week about CRO tooling — alignment with our offer.").
+- **Drafting angle:** sharpen using the dossier's Three Talking Points. Pick the strongest seed and use it as the angle.
+- **Prior history:** if the dossier shows ANY prior email or meeting touch, replace the default `[Skip]` with a one-line summary so future commands have the context.
+
+If `contact-researcher` isn't available, skip enrichment silently and proceed to Step 4. Tell the user once at the end of Step 5: "Heads up — enrichment was skipped because `contact-researcher` isn't installed. Install lead-engine v0.2+ for richer SIG entries."
+
 ## Step 4: Append to pipeline
 
 For each surviving signal, append a SIG entry to `pipeline.md` using the same format as `/lead-capture`:
