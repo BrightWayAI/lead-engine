@@ -38,7 +38,7 @@ Order matters — start with the cheapest, most-grounding sources before spendin
 
 1. **HubSpot first.** Search for the contact by name and (if provided) email or company. If a record exists, pull: lifecycle stage, lead status, owner, last activity date, associated company record, open deals, recent tasks. If no record, note it and continue — the contact may be net-new.
 
-2. **Gmail next.** Search threads by the contact's email (or, if no email, by name + company). Pull the most recent 1–3 threads in the time horizon. Capture date, subject, and a ≤30-word summary of the latest exchange. Note the *direction* of the last message — did Zach send last, or did the contact?
+2. **Gmail next.** Search threads by the contact's email (or, if no email, by name + company). Pull the most recent 1–3 threads in the time horizon. Capture date, subject, and a ≤30-word summary of the latest exchange. Note the *direction* of the last message — did the user send last, or did the contact?
 
 3. **Calendar.** List past and upcoming events involving the contact (search by name or email). Capture the most recent past meeting (date + topic) and any upcoming. Skip if nothing's there — don't pad.
 
