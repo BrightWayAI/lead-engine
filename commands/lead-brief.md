@@ -49,6 +49,14 @@ The agent returns:
 - **Suggested Next Step** — informs Step 4's "Soft next step" section
 - **Confidence & Gaps** — flag anything missing (e.g., "no Gmail connector — relationship history limited")
 
+### Confidence check before assembling the brief
+
+**Read the dossier's `Confidence & Gaps` section first.** If `Confidence: Low` AND key sections (Contact Snapshot, Relationship History) are sparse, pause and ask the user:
+
+> "Heads up — `contact-researcher` came back Low confidence on this contact: [specific gap]. The brief is going to be thin without it. Want to share what you know — relationship history, why they're considering this, anything not in the CRM — so I can build a stronger brief? Or 'proceed' and I'll work with what we have."
+
+If the user provides context, incorporate it into Step 4's structure. If they say "proceed," do so and flag in the brief's bottom that confidence was low and verify before the call.
+
 ### Use the dossier as raw material for Step 4
 
 Don't paste the dossier into the brief verbatim. Step 4 has its own structure (Who you're meeting, The company, Signal recap, Their reply analysis, etc.). Use the dossier's findings as inputs to those sections — your job is to synthesize, not relay.
