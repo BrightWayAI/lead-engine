@@ -63,7 +63,7 @@ Pairs naturally with:
 - **[claude-cortex](https://github.com/BrightWayAI/claude-cortex)** — captures memory of past signals and replies; surfaces relevant context when you mention a contact mid-conversation.
 - **[bizdev-outreach](https://github.com/BrightWayAI/Biz-Dev)** — for ad-hoc per-contact drafting outside the LinkedIn signal pipeline.
 - **[weekly-outreach](https://github.com/BrightWayAI/weekly-outreach)** — for non-LinkedIn-channel weekly BD prep using the same `contact-researcher` subagent.
-- **[brightway-core](https://github.com/BrightWayAI/core)** — provides `pipeline-analyst` for ranking pipeline contacts by recency × signal strength.
+- **[core-ops](https://github.com/BrightWayAI/core-ops)** — provides `pipeline-analyst` for ranking pipeline contacts by recency × signal strength.
 
 ## What it does NOT do
 
