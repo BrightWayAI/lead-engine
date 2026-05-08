@@ -46,6 +46,25 @@ That kicks off a one-time interview — your company, ICP, voice, value-adds, si
 
 The setup command checks which of these you have and adapts.
 
+## The contact-researcher subagent
+
+Lead Engine ships with a subagent called `contact-researcher` that does single-contact deep dives across CRM, email, calendar, and the public web. It's used internally by `/lead-brief` (for the dossier section) and `/lead-pull` (for top-N enrichment after Apollo), and it's exposed for other plugins in the [BrightWay AI marketplace](https://github.com/BrightWayAI/claude-plugins) to delegate to:
+
+- **bizdev-outreach** uses it for Phase 1 research before drafting.
+- **weekly-outreach** uses it to deepen the top 3–5 highest-priority contacts each week.
+- Any custom skill or command can invoke it via the Task tool with `subagent_type="contact-researcher"`.
+
+The agent returns a structured dossier (Contact Snapshot / Relationship History / Recent Public Signals / Three Talking Points / Suggested Next Step / Confidence) — consistent shape regardless of caller. See [`agents/contact-researcher.md`](agents/contact-researcher.md) for the full spec.
+
+## Companion plugins
+
+Pairs naturally with:
+
+- **[claude-cortex](https://github.com/BrightWayAI/claude-cortex)** — captures memory of past signals and replies; surfaces relevant context when you mention a contact mid-conversation.
+- **[bizdev-outreach](https://github.com/BrightWayAI/Biz-Dev)** — for ad-hoc per-contact drafting outside the LinkedIn signal pipeline.
+- **[weekly-outreach](https://github.com/BrightWayAI/weekly-outreach)** — for non-LinkedIn-channel weekly BD prep using the same `contact-researcher` subagent.
+- **[brightway-core](https://github.com/BrightWayAI/core)** — provides `pipeline-analyst` for ranking pipeline contacts by recency × signal strength.
+
 ## What it does NOT do
 
 LinkedIn actively blocks scraping and DM automation. **This plugin does not click-send DMs, comments, or connection requests for you.** It produces copy-paste-ready messages and the timing logic. You paste them into LinkedIn yourself. The "engine" is the *signal sourcing + warming + drafting + cadence*, not the act of sending.
