@@ -14,6 +14,28 @@ You are running the onboarding flow for the Lead Engine plugin. Your job is to c
 - Be conversational — a quick intake call, not a form.
 - If a `user-context.md` already exists at the path below, **read it first** and present each existing answer as the default. The user can confirm or override. This is "update mode."
 
+## Pre-step: Check shared identity
+
+Before any other steps, check whether `~/Documents/Claude/identity.md` exists. This is a shared identity file populated by cortex's `/setup-identity` command — every BrightWayAI marketplace plugin reads it.
+
+- **If it exists and is populated:** read it. Use the values to pre-fill Q1 (Company name), Q2 (Company website), and any role/identity follow-ups. Skip those questions; just confirm what you read. The auto-research step still runs to enrich Q3 (positioning) and Q4 (products).
+- **If it doesn't exist:** mention to the user:
+  > "Heads up — there's a shared identity file (`/setup-identity` in cortex) that other plugins read too. Capture name/company/role/tools once and every plugin uses it. Want to run `/setup-identity` first (recommended, ~2 min), or proceed inline?"
+  - If user picks "/setup-identity first," route there, then return to this setup.
+  - If "inline," proceed.
+
+## Pre-step 2: Check shared voice
+
+After identity, check whether `~/Documents/Claude/voice.md` exists. This is a shared writing-voice file populated by cortex's `/setup-voice` command — used by every drafting plugin (lead-engine for DMs, bizdev-outreach for outreach, weekly-outreach for weekly BD, news-curator's post-assembler) so voice stays consistent.
+
+- **If it exists and is populated:** read it. Use those values to pre-fill voice-related questions in this interview (banned phrases, tone, sign-off). Skip those; just confirm. Plugin-specific voice rules (the 27-word opener pattern, signal-tied openers) stay in this plugin's references.
+- **If it doesn't exist:** offer:
+  > "Want to capture your writing voice once via `/setup-voice` (in cortex)? Every drafting plugin reads it — voice stays consistent across channels. Run it now (~5 min) or proceed inline here?"
+  - "Run /setup-voice first" → route there, then resume.
+  - "Inline" → proceed.
+
+---
+
 ## Step 0: Check for existing profile
 
 Read `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`. If it exists with real content (not the placeholder), tell the user:
