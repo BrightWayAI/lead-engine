@@ -4,6 +4,16 @@ All notable changes to lead-engine are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.2.4] — contact-researcher persists dossier as cortex person page (2026-05-12)
+
+### Added
+- **`contact-researcher` agent now writes a cortex person page** alongside returning the dossier (graduation trigger #1 from cortex's CLAUDE.md schema). First run creates `<config-root>/memory/person/<slug>.md` using cortex's person-page schema, pre-filled from the dossier — Identity, Relationship temperature inferred from history, first Recent interactions line, Notes seeded from talking points and suggested next step. Subsequent runs update Identity fields where clearly fresher, append a new Recent-interactions line, and additively grow Notes — never overwriting prior content.
+- **Name-collision disambiguation.** If two people would slug to the same name (different company / email), the agent surfaces the conflict and recommends appending a company hint (`<slug>-<company-slug>.md`).
+- **Graceful degradation.** Skips silently if cortex isn't installed. The dossier still returns as the primary output; cortex persistence is a side-effect, not a precondition.
+
+### Why this matters
+Phase 3 of SECOND-BRAIN-V2-SPEC. Repeating contact-research on the same person was previously a from-scratch synthesis every time. Now the second and subsequent runs update an existing canonical page, making the agent faster and the person's history queryable from cortex without going back through this plugin.
+
 ## [0.2.3] — Platform-agnostic Step 0 (2026-05-12)
 
 ### Changed

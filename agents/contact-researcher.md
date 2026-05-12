@@ -90,6 +90,30 @@ Return exactly this structure. Every section is mandatory. If a section has no d
 **[High | Medium | Low]** — [one line: what you found, what was missing, any flags for the parent skill (e.g., "CRM record stale — last activity 6 months ago" or "No HubSpot connector available — relationship history limited to email")]
 ```
 
+## Person-page side effect (cortex v4.2+)
+
+After returning the dossier, also persist it as a cortex person page — your dossier IS the page seed (graduation trigger #1 from cortex's CLAUDE.md schema).
+
+Conditional on cortex being installed (check for `<config-root>/memory/` directory existence):
+
+1. Resolve `<config-root>` from `~/Documents/.claude-plugin-config-root` (the platform-aware way — same Step 0 every plugin uses).
+2. Compute slug: `firstname-lastname` lowercased, hyphenated. If `<config-root>/memory/person/<slug>.md` exists but is about a different person (different company / email), append a company hint (`<slug>-<company-slug>.md`) and surface the disambiguation in Confidence.
+3. **If the page does NOT exist** → create it using cortex's person-page schema (Identity → Relationship → Recent interactions → Open threads → Notes → Linked entities). Pre-fill from the dossier you just produced:
+   - Identity: name, title, company (link to existing cortex client/bizdev node if present), email, LinkedIn, first-mentioned date
+   - Relationship: how-known line synthesized from the dossier's history section, temperature (Cold/Warm/Active/Dormant) inferred from frequency + recency, last contact date + type
+   - Recent interactions: append a "<today> — research — dossier produced for <purpose>" line
+   - Open threads: lift WAITING/P0 items from the dossier
+   - Notes: the dossier's narrative content (3-talking-points, suggested next step) as free-form context
+   - Linked entities: project nodes (client/bizdev/strategy) the contact appears in
+4. **If the page DOES exist** → treat this as an additive update:
+   - Update Identity fields that are clearly fresher (job change detected, new email)
+   - Refresh Relationship temperature if recency changed
+   - Append a new Recent interactions line ("<today> — research — refreshed dossier")
+   - Append new Notes content below existing — don't overwrite prior content
+5. Add or refresh the "Active people" row in `<config-root>/memory/DASHBOARD.md`.
+
+Skip silently if cortex isn't installed (no `<config-root>/memory/` directory). The dossier still returns to the parent skill as the primary output. Persisting to cortex is a side-effect, not a precondition.
+
 ## Constraints
 
 - **Single contact or single company.** If the brief asks about more than 3 contacts, return "Use bulk-research path — this agent is for individual deep-dives" and stop.
