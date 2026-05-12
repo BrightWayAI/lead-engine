@@ -48,7 +48,7 @@ The setup command checks which of these you have and adapts.
 
 ## The contact-researcher subagent
 
-Lead Engine ships with a subagent called `contact-researcher` that does single-contact deep dives across CRM, email, calendar, and the public web. It's used internally by `/lead-brief` (for the dossier section) and `/lead-pull` (for top-N enrichment after Apollo), and it's exposed for other plugins in the [BrightWay AI marketplace](https://github.com/BrightWayAI/claude-plugins) to delegate to:
+Lead Engine ships with a subagent called `contact-researcher` that does single-contact deep dives across CRM, email, calendar, and the public web. It's used internally by `/lead-brief` (for the dossier section) and `/lead-pull` (for top-N enrichment after Apollo), and it's exposed for other plugins in the [BrightWay AI marketplace](https://github.com/BrightWayAI/nucleus) to delegate to:
 
 - **bizdev-outreach** uses it for Phase 1 research before drafting.
 - **weekly-outreach** uses it to deepen the top 3–5 highest-priority contacts each week.
