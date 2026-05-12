@@ -37,7 +37,6 @@ Once provided:
 2. Create `<path>/plugins/` if it doesn't exist.
 3. Write the absolute path to `~/.claude-plugin-config-root`.
 4. Confirm and offer migration if `~/Documents/Claude/identity.md` or `voice.md` exists (copy on Y).
-5. **Pre-staged content**: if any `~/Documents/Claude/plugin-configs/*.user-context.md` files exist, offer to copy them into `<path>/plugins/`.
 
 ### C — Read shared identity
 
