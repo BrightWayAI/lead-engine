@@ -11,9 +11,9 @@ You are pulling fresh signals from Apollo, filtering against the user's ICP, and
 ## Step 0: Preflight
 
 Read:
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`
+- `<config-root>/plugins/lead-engine.user-context.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/seven-signals.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md` (so we don't re-add duplicates)
+- `<config-root>/plugins/lead-engine.pipeline.md` (so we don't re-add duplicates)
 
 If `user-context.md` is missing/placeholder: stop, tell user to run `/lead-setup`.
 
@@ -67,7 +67,7 @@ Limit: 15 companies per pull.
 
 For each candidate signal:
 
-1. **Dedupe** — check `pipeline.md`. If the same contact already has an active SIG (not `dead` / `booked`), skip. If a SIG exists but is closed, you can re-add only if the new signal is materially different from the closed one.
+1. **Dedupe** — check ``<config-root>/plugins/lead-engine.pipeline.md`. If the same contact already has an active SIG (not `dead` / `booked`), skip. If a SIG exists but is closed, you can re-add only if the new signal is materially different from the closed one.
 2. **Disqualify** — apply the disqualifier rules from `user-context.md`. Drop anything that hits a disqualifier.
 3. **Score** — assign High / Medium / Low using the rubric in `seven-signals.md` and the user's signal-priority weighting from `user-context.md`. A signal type the user marked "high priority" should bias scoring up.
 
@@ -101,7 +101,7 @@ If `contact-researcher` isn't available, skip enrichment silently and proceed to
 
 ## Step 4: Append to pipeline
 
-For each surviving signal, append a SIG entry to `pipeline.md` using the same format as `/lead-capture`:
+For each surviving signal, append a SIG entry to ``<config-root>/plugins/lead-engine.pipeline.md` using the same format as `/lead-capture`:
 
 ```markdown
 ---

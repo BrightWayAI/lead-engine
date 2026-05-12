@@ -11,9 +11,9 @@ You are drafting the note that goes inside a LinkedIn connection request. This i
 ## Step 0: Preflight
 
 Read:
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`
+- `<config-root>/plugins/lead-engine.user-context.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/voice-rules.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`
+- `<config-root>/plugins/lead-engine.pipeline.md`
 
 If `user-context.md` is missing/placeholder: stop, tell user to run `/lead-setup`.
 
@@ -118,7 +118,7 @@ If you'd rather have a note, run `/lead-connect SIG-[id]` again and I'll pick fr
 
 ## Step 6: Update the pipeline
 
-Add to the SIG entry in `pipeline.md`:
+Add to the SIG entry in ``<config-root>/plugins/lead-engine.pipeline.md`:
 
 ```
 **Connection request:** [drafted | sent (date)] — pattern: [A / B / C]

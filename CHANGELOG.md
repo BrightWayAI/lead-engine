@@ -4,12 +4,22 @@ All notable changes to lead-engine are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
-## [Unreleased]
+## [0.2.0] — Config-root refactor + contact-researcher
 
-### Added
+### Changed (config-root refactor)
+- **All writable plugin data moved to a user-chosen folder.** User-context, pipeline, sent-log, and pre-call briefs were previously stored under the plugin's source folder (which Cowork mounts read-only). Writes failed silently. They now live under `<config-root>/plugins/lead-engine.*`, where `<config-root>` is the folder the user chooses on first plugin setup (recorded at `~/.claude-plugin-config-root`):
+  - `<config-root>/plugins/lead-engine.user-context.md` (was `references/user-context.md`)
+  - `<config-root>/plugins/lead-engine.pipeline.md` (was `references/pipeline.md`)
+  - `<config-root>/plugins/lead-engine.sent-log.md` (was `references/sent-log.md`)
+  - `<config-root>/plugins/lead-engine.briefs/SIG-*.md` (was `references/briefs/`)
+- **Read-only plugin reference files stay where they are** — `references/seven-signals.md`, `references/voice-rules.md`, `references/rollout-plan.md` continue to load from the plugin's source folder (they don't need to be writable).
+- **`/lead-setup` gets Step 0** — resolves the config root via the pointer; prompts for it on first run; reads shared identity (`<config-root>/identity.md`) and voice (`<config-root>/voice.md`); offers to migrate legacy `~/Documents/Claude/identity.md`/`voice.md` and any pre-staged plugin configs.
+- **All `/lead-*` commands updated** to read/write the new paths.
+- **User-facing prompts and skill descriptions debranded** for fork-friendliness.
+
+### Added (previously in-flight)
 - `contact-researcher` subagent — single-contact deep dive across CRM, email, calendar, web. Returns a structured dossier (Contact Snapshot / Relationship History / Recent Public Signals / Three Talking Points / Suggested Next Step / Confidence). Used internally by `/lead-brief` and `/lead-pull`, exposed for other plugins to delegate to.
 - `/lead-brief` and `/lead-pull` now delegate to `contact-researcher` with confidence-aware gating — pause on Low confidence and ask the user for context before proceeding.
-- Setup reads `~/Documents/Claude/identity.md` (cortex's `/setup-identity`) and `~/Documents/Claude/voice.md` (cortex's `/setup-voice`) when available; skips identity/voice questions in the interview.
 
 ## [0.1.0] — Initial release
 

@@ -11,9 +11,9 @@ You are updating pipeline state and (optionally) CRM after the user takes an act
 ## Step 0: Preflight
 
 Read:
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md` (for CRM wiring + auto-log preference)
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/sent-log.md`
+- `<config-root>/plugins/lead-engine.user-context.md` (for CRM wiring + auto-log preference)
+- `<config-root>/plugins/lead-engine.pipeline.md`
+- `<config-root>/plugins/lead-engine.sent-log.md`
 
 ## Step 1: Parse the command
 
@@ -47,7 +47,7 @@ If the SIG-ID doesn't exist in the pipeline, say so and stop.
 > [verbatim message]
 ```
 
-3. Update `pipeline.md` SIG entry:
+3. Update ``<config-root>/plugins/lead-engine.pipeline.md` SIG entry:
    - Status: `drafted` → `sent`
    - Cadence section: mark Touch [N] as `sent [date]`
    - Update next-touch target date based on cadence interval from `user-context.md`
@@ -76,7 +76,7 @@ If the SIG-ID doesn't exist in the pipeline, say so and stop.
 > [verbatim reply]
 ```
 
-3. Update `pipeline.md` SIG status: `sent` → `replied`. Pause cadence (clear future touch target dates).
+3. Update ``<config-root>/plugins/lead-engine.pipeline.md` SIG status: `sent` → `replied`. Pause cadence (clear future touch target dates).
 4. Read the reply and classify it:
    - **Positive / interested:** they want to chat / hear more / book time.
    - **Question:** they're asking for clarification or info.
@@ -90,7 +90,7 @@ If the SIG-ID doesn't exist in the pipeline, say so and stop.
 ### Action: `booked`
 
 1. Ask (AskUserQuestion): "When's the call? (date + time + meeting link if you have it)"
-2. Update `pipeline.md` status: → `booked`. Add the meeting details to the SIG entry's Notes.
+2. Update ``<config-root>/plugins/lead-engine.pipeline.md` status: → `booked`. Add the meeting details to the SIG entry's Notes.
 3. Append to `sent-log.md` a "Booked" entry.
 4. If CRM connected:
    - Update the contact's lifecycle / deal stage to whatever "Meeting Booked" maps to in the user's CRM (HubSpot has a built-in `Meeting Booked` stage; other CRMs vary — ask the user once and remember).
@@ -100,7 +100,7 @@ If the SIG-ID doesn't exist in the pipeline, say so and stop.
 ### Action: `dead`
 
 1. Ask (AskUserQuestion freeform, optional): "Quick reason this is dead? (one line — helps refine future ICP scoring. Skip if not worth the keystrokes.)"
-2. Update `pipeline.md` status: → `dead`. Append the reason to the Notes section if provided.
+2. Update ``<config-root>/plugins/lead-engine.pipeline.md` status: → `dead`. Append the reason to the Notes section if provided.
 3. Append a "Closed dead" entry to `sent-log.md` with the reason.
 4. If CRM connected, optionally update contact lifecycle to "Disqualified" or equivalent — but only if the user's CRM has a sensible mapping. If unclear, leave the CRM alone and note it.
 

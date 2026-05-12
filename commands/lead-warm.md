@@ -11,9 +11,9 @@ You are preparing the user to warm a prospect *before* sending the cold DM. The 
 ## Step 0: Preflight
 
 Read:
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`
+- `<config-root>/plugins/lead-engine.user-context.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/voice-rules.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`
+- `<config-root>/plugins/lead-engine.pipeline.md`
 
 If `user-context.md` is missing/placeholder: stop, tell user to run `/lead-setup`.
 
@@ -123,7 +123,7 @@ DM target date: [today + 1 day]
 
 ## Step 7: Update the pipeline
 
-Update the SIG entry in `pipeline.md`:
+Update the SIG entry in ``<config-root>/plugins/lead-engine.pipeline.md`:
 
 - Add a new section under the entry: `**Warming:** comment drafted [date] · DM target: [date+1]`
 - Push back the Touch 1 target date by 1 day (so it's after the warming).

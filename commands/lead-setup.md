@@ -14,31 +14,52 @@ You are running the onboarding flow for the Lead Engine plugin. Your job is to c
 - Be conversational — a quick intake call, not a form.
 - If a `user-context.md` already exists at the path below, **read it first** and present each existing answer as the default. The user can confirm or override. This is "update mode."
 
-## Pre-step: Check shared identity
+## Step 0: Resolve plugin config root
 
-Before any other steps, check whether `~/Documents/Claude/identity.md` exists. This is a shared identity file populated by cortex's `/setup-identity` command — every BrightWayAI marketplace plugin reads it.
+Per-plugin config in this marketplace lives under a user-chosen folder, recorded at `~/.claude-plugin-config-root` (single-line text file in the user's home directory).
 
-- **If it exists and is populated:** read it. Use the values to pre-fill Q1 (Company name), Q2 (Company website), and any role/identity follow-ups. Skip those questions; just confirm what you read. The auto-research step still runs to enrich Q3 (positioning) and Q4 (products).
-- **If it doesn't exist:** mention to the user:
-  > "Heads up — there's a shared identity file (`/setup-identity` in cortex) that other plugins read too. Capture name/company/role/tools once and every plugin uses it. Want to run `/setup-identity` first (recommended, ~2 min), or proceed inline?"
-  - If user picks "/setup-identity first," route there, then return to this setup.
-  - If "inline," proceed.
+### A — Try the pointer
 
-## Pre-step 2: Check shared voice
+Call `request_cowork_directory(~)` once if not granted, then read `~/.claude-plugin-config-root`.
 
-After identity, check whether `~/Documents/Claude/voice.md` exists. This is a shared writing-voice file populated by cortex's `/setup-voice` command — used by every drafting plugin (lead-engine for DMs, bizdev-outreach for outreach, weekly-outreach for weekly BD, news-curator's post-assembler) so voice stays consistent.
+- **Pointer exists**: read line 1 → that's the config root path. Call `request_cowork_directory(<config-root>)` to mount it. Skip to section C.
+- **Pointer missing**: continue to section B.
 
-- **If it exists and is populated:** read it. Use those values to pre-fill voice-related questions in this interview (banned phrases, tone, sign-off). Skip those; just confirm. Plugin-specific voice rules (the 27-word opener pattern, signal-tied openers) stay in this plugin's references.
-- **If it doesn't exist:** offer:
-  > "Want to capture your writing voice once via `/setup-voice` (in cortex)? Every drafting plugin reads it — voice stays consistent across channels. Run it now (~5 min) or proceed inline here?"
-  - "Run /setup-voice first" → route there, then resume.
-  - "Inline" → proceed.
+### B — First-time bootstrap
+
+Prompt the user:
+
+> "First-time plugin setup. Where should I store your plugin config — identity, voice, and per-plugin settings? Pick a folder you control. Examples: `~/Documents/Claude/` (a common pick — and where cortex memory already writes if installed) or `~/Documents/PluginConfig/` or any other path. The folder will hold one `identity.md`, one `voice.md`, and a `plugins/` subdirectory with one file per plugin."
+
+Once provided:
+
+1. Call `request_cowork_directory(<path>)` to mount it.
+2. Create `<path>/plugins/` if it doesn't exist.
+3. Write the absolute path to `~/.claude-plugin-config-root`.
+4. Confirm and offer migration if `~/Documents/Claude/identity.md` or `voice.md` exists (copy on Y).
+5. **Pre-staged content**: if any `~/Documents/Claude/plugin-configs/*.user-context.md` files exist, offer to copy them into `<path>/plugins/`.
+
+### C — Read shared identity
+
+Read `<config-root>/identity.md` (cortex's `/setup-identity` output).
+
+- **Exists and populated** → pre-fill Q1 (Company name), Q2 (Company website), and role/identity follow-ups from those values. The auto-research step still runs to enrich Q3 (positioning) and Q4 (products).
+- **Missing** → offer to run `/setup-identity` first or proceed inline.
+
+### D — Read shared voice
+
+Read `<config-root>/voice.md` (cortex's `/setup-voice` output).
+
+- **Exists and populated** → pre-fill voice questions (banned phrases, tone, sign-off). Plugin-specific voice rules (the 27-word opener pattern, signal-tied openers) stay in this plugin's references.
+- **Missing** → offer to run `/setup-voice` first or proceed inline.
+
+For the rest of this document, **`<config-root>`** refers to the resolved path. This plugin's config file lives at **`<config-root>/plugins/lead-engine.user-context.md`**.
 
 ---
 
-## Step 0: Check for existing profile
+## Step 0a: Check for existing profile
 
-Read `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`. If it exists with real content (not the placeholder), tell the user:
+Read `<config-root>/plugins/lead-engine.user-context.md`. If it exists with real content (not the placeholder), tell the user:
 
 "Looks like you've set this up before — I'll show you each existing answer and you can press through (keep) or update it."
 
@@ -173,7 +194,7 @@ Check for Gmail tools (`gmail_*` or `search_threads`).
 ## Step 8: Write the context file
 
 Once all answers are collected, write to:
-`${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`
+`<config-root>/plugins/lead-engine.user-context.md`
 
 Use this exact format:
 
@@ -258,7 +279,7 @@ Use this exact format:
 
 ## Step 9: Initialize pipeline files (if first run)
 
-If `pipeline.md` doesn't exist at `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`, create it with this header:
+If ``<config-root>/plugins/lead-engine.pipeline.md` doesn't exist at `<config-root>/plugins/lead-engine.pipeline.md`, create it with this header:
 
 ```markdown
 # Pipeline — Active Signals

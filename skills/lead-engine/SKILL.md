@@ -19,7 +19,7 @@ When in doubt, prioritize *signal freshness* over *message polish*. A 4-hour-old
 
 Before you draft, capture, or log anything, **read in this order**:
 
-1. `references/user-context.md` — the user's company, ICP, voice, value-adds, tools, cadence preferences. If this file is missing or contains the placeholder, tell the user to run `/lead-setup` first and stop.
+1. `<config-root>/plugins/lead-engine.user-context.md` — the user's company, ICP, voice, value-adds, tools, cadence preferences. If this file is missing or contains the placeholder, tell the user to run `/lead-setup` first and stop.
 2. `references/seven-signals.md` — the canonical 7-signal taxonomy with the prompts for classifying each.
 3. `references/voice-rules.md` — banned phrases, tone-matching rules, length caps, the 27-word opener pattern.
 4. `references/pipeline.md` — current active signals.
@@ -76,7 +76,7 @@ If they reply at any point: pause the cadence, switch to context-driven response
 The commands handle this end-to-end, but if the user asks naturally ("draft a DM for the Sarah signal") rather than via slash command:
 
 1. Read `user-context.md` for voice/ICP/value-adds.
-2. Read `pipeline.md` to find the relevant signal entry.
+2. Read ``<config-root>/plugins/lead-engine.pipeline.md` to find the relevant signal entry.
 3. Read `voice-rules.md` for the opener pattern.
 4. Read `sent-log.md` to see if any prior touches exist (if so, this is a follow-up, not an opener).
 5. Draft the message. Output:
@@ -88,7 +88,7 @@ Do not output multiple alternates by default. One good DM > three mediocre ones.
 
 ## When the user logs a send or reply
 
-Update `sent-log.md` with the timestamp, signal ID, touch number, and verbatim message sent. Update `pipeline.md` status. If CRM is connected per `user-context.md`, push the engagement to CRM.
+Update `sent-log.md` with the timestamp, signal ID, touch number, and verbatim message sent. Update ``<config-root>/plugins/lead-engine.pipeline.md` status. If CRM is connected per `user-context.md`, push the engagement to CRM.
 
 If the reply is a *no*, mark the signal `dead` and stop the cadence.
 If the reply is a *yes / interested*, mark `replied` and prompt the user for next steps (book a call, send the resource, etc.).

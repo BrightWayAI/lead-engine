@@ -12,10 +12,10 @@ You are drafting outreach messages for a signal already captured in the pipeline
 
 Read all of:
 
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`
+- `<config-root>/plugins/lead-engine.user-context.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/voice-rules.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/sent-log.md`
+- `<config-root>/plugins/lead-engine.pipeline.md`
+- `<config-root>/plugins/lead-engine.sent-log.md`
 
 If `user-context.md` is missing or placeholder, stop and tell the user to run `/lead-setup`.
 
@@ -129,7 +129,7 @@ If they reply, run `/lead-log SIG-[id] reply` and we'll handle it from there.
 
 ## Step 7: Update the pipeline
 
-Update the SIG entry in `pipeline.md`:
+Update the SIG entry in ``<config-root>/plugins/lead-engine.pipeline.md`:
 
 - Status: `new` → `drafted`
 - Cadence section: replace `[pending]` for each touch with the actual draft, dated.

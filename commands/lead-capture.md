@@ -12,9 +12,9 @@ You are capturing a single LinkedIn buying signal the user just spotted. Be fast
 
 Read these files. If `user-context.md` is missing or has placeholder content, stop and tell the user to run `/lead-setup` first.
 
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`
+- `<config-root>/plugins/lead-engine.user-context.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/seven-signals.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`
+- `<config-root>/plugins/lead-engine.pipeline.md`
 
 ## Step 1: Get the signal from the user
 
@@ -64,7 +64,7 @@ Output the score with a one-line rationale.
 
 ## Step 5: Append to pipeline
 
-Append to `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md` using this entry format:
+Append to `<config-root>/plugins/lead-engine.pipeline.md` using this entry format:
 
 ```markdown
 ---

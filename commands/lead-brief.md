@@ -11,9 +11,9 @@ You are generating a pre-call brief for a booked meeting. This is the highest-le
 ## Step 0: Preflight
 
 Read:
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/sent-log.md`
+- `<config-root>/plugins/lead-engine.user-context.md`
+- `<config-root>/plugins/lead-engine.pipeline.md`
+- `<config-root>/plugins/lead-engine.sent-log.md`
 - `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/seven-signals.md`
 
 If `user-context.md` is missing/placeholder: stop, tell user to run `/lead-setup`.
@@ -27,7 +27,7 @@ The SIG must have status `booked` (or at minimum `replied` with the user about t
 ## Step 2: Pull all known context for this signal
 
 Gather from the local files:
-- **From the SIG entry in `pipeline.md`:** signal type, captured date, contact details, signal context, drafting angle, notes, meeting time/date.
+- **From the SIG entry in ``<config-root>/plugins/lead-engine.pipeline.md`:** signal type, captured date, contact details, signal context, drafting angle, notes, meeting time/date.
 - **From `sent-log.md`:** every touch sent + every reply received. Read the verbatim messages — *what* they replied with tells you their language and what they care about.
 
 ## Step 3: Pull contact + company context — delegate to contact-researcher
@@ -65,7 +65,7 @@ The dossier and the local SIG context (signal recap, sent-log, the verbatim repl
 
 ### If contact-researcher is not available
 
-If the agent isn't registered, fall back to inline pulls (CRM lookup, Gmail search, 3-5 web searches). Tell the user once: "Heads up — `contact-researcher` isn't available. Briefs are slower and noisier without it. Install the lead-engine plugin via the BrightWayAI marketplace if you haven't." Then proceed inline.
+If the agent isn't registered, fall back to inline pulls (CRM lookup, Gmail search, 3-5 web searches). Tell the user once: "Heads up — `contact-researcher` isn't available. Briefs are slower and noisier without it. Install the lead-engine plugin via this marketplace if you haven't." Then proceed inline.
 
 ## Step 4: Synthesize the brief
 
@@ -181,7 +181,7 @@ This part is short and surgical. Skip if nothing comes to mind.
 
 Output the brief to the user in chat.
 
-Also save it to `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/briefs/SIG-[id].md` so it's archived. If the `briefs/` directory doesn't exist, create it.
+Also save it to `<config-root>/plugins/lead-engine.briefs/SIG-[id].md` so it's archived. If the `briefs/` directory doesn't exist, create it.
 
 ## Step 6: Offer post-call follow-up
 

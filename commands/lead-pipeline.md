@@ -12,12 +12,12 @@ You are giving the user a short, scannable read of their pipeline state and a pr
 
 Read:
 
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/user-context.md` (for daily DM budget + cadence)
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/pipeline.md`
-- `${CLAUDE_PLUGIN_ROOT}/skills/lead-engine/references/sent-log.md`
+- `<config-root>/plugins/lead-engine.user-context.md` (for daily DM budget + cadence)
+- `<config-root>/plugins/lead-engine.pipeline.md`
+- `<config-root>/plugins/lead-engine.sent-log.md`
 
 If `user-context.md` is missing/placeholder: stop, tell user to run `/lead-setup`.
-If `pipeline.md` has no entries: tell the user "Pipeline is empty. Run `/lead-pull` (Apollo) or `/lead-capture` (manual) to add a signal." and stop.
+If ``<config-root>/plugins/lead-engine.pipeline.md` has no entries: tell the user "Pipeline is empty. Run `/lead-pull` (Apollo) or `/lead-capture` (manual) to add a signal." and stop.
 
 ## Step 1: Compute today's status
 
