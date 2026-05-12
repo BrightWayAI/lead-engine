@@ -16,11 +16,11 @@ You are running the onboarding flow for the Lead Engine plugin. Your job is to c
 
 ## Step 0: Resolve plugin config root
 
-Per-plugin config in this marketplace lives under a user-chosen folder, recorded at `~/.claude-plugin-config-root` (single-line text file in the user's home directory).
+Per-plugin config in this marketplace lives under a user-chosen folder, recorded at `~/Documents/.claude-plugin-config-root` (single-line text file in the user's home directory).
 
 ### A — Try the pointer
 
-Call `request_cowork_directory(~)` once if not granted, then read `~/.claude-plugin-config-root`.
+Call `request_cowork_directory(~/Documents)` once if not granted, then read `~/Documents/.claude-plugin-config-root`.
 
 - **Pointer exists**: read line 1 → that's the config root path. Call `request_cowork_directory(<config-root>)` to mount it. Skip to section C.
 - **Pointer missing**: continue to section B.
@@ -35,7 +35,7 @@ Once provided:
 
 1. Call `request_cowork_directory(<path>)` to mount it.
 2. Create `<path>/plugins/` if it doesn't exist.
-3. Write the absolute path to `~/.claude-plugin-config-root`.
+3. Write the absolute path to `~/Documents/.claude-plugin-config-root`.
 4. Confirm and offer migration if `~/Documents/Claude/identity.md` or `voice.md` exists (copy on Y).
 
 ### C — Read shared identity

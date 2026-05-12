@@ -7,7 +7,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `
 ## [0.2.0] — Config-root refactor + contact-researcher
 
 ### Changed (config-root refactor)
-- **All writable plugin data moved to a user-chosen folder.** User-context, pipeline, sent-log, and pre-call briefs were previously stored under the plugin's source folder (which Cowork mounts read-only). Writes failed silently. They now live under `<config-root>/plugins/lead-engine.*`, where `<config-root>` is the folder the user chooses on first plugin setup (recorded at `~/.claude-plugin-config-root`):
+- **All writable plugin data moved to a user-chosen folder.** User-context, pipeline, sent-log, and pre-call briefs were previously stored under the plugin's source folder (which Cowork mounts read-only). Writes failed silently. They now live under `<config-root>/plugins/lead-engine.*`, where `<config-root>` is the folder the user chooses on first plugin setup (recorded at `~/Documents/.claude-plugin-config-root`):
   - `<config-root>/plugins/lead-engine.user-context.md` (was `references/user-context.md`)
   - `<config-root>/plugins/lead-engine.pipeline.md` (was `references/pipeline.md`)
   - `<config-root>/plugins/lead-engine.sent-log.md` (was `references/sent-log.md`)
