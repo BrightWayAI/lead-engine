@@ -20,9 +20,9 @@ Per-plugin config in this marketplace lives under a user-chosen folder, recorded
 
 ### A — Try the pointer
 
-Call `request_cowork_directory(~/Documents)` once if not granted, then read `~/Documents/.claude-plugin-config-root`.
+Ensure access to `~/Documents`. In Cowork, call `request_cowork_directory(~/Documents)` once if not already granted. In Claude Code (or any environment with direct filesystem access), no mount is needed. Then read `~/Documents/.claude-plugin-config-root`.
 
-- **Pointer exists**: read line 1 → that's the config root path. Call `request_cowork_directory(<config-root>)` to mount it. Skip to section C.
+- **Pointer exists**: read line 1 → that's the config root path. Ensure access to `<config-root>`. If running in Cowork and the folder isn't already mounted in this session, call `request_cowork_directory(<config-root>)`. If running in Claude Code or another environment with direct filesystem access, no mount call is needed. Skip to section C.
 - **Pointer missing**: continue to section B.
 
 ### B — First-time bootstrap
@@ -33,7 +33,7 @@ Prompt the user:
 
 Once provided:
 
-1. Call `request_cowork_directory(<path>)` to mount it.
+1. Ensure access to `<path>`. If running in Cowork and the folder isn't already mounted in this session, call `request_cowork_directory(<path>)`. If running in Claude Code or another environment with direct filesystem access, no mount call is needed — proceed to read or write the file.
 2. Create `<path>/plugins/` if it doesn't exist.
 3. Write the absolute path to `~/Documents/.claude-plugin-config-root`.
 4. Confirm and offer migration if `~/Documents/Claude/identity.md` or `voice.md` exists (copy on Y).
