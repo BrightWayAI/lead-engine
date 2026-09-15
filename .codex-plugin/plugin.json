@@ -1,0 +1,36 @@
+{
+  "name": "lead-engine",
+  "version": "0.2.5",
+  "description": "Capture and score buying signals, research contacts, draft warm outreach, manage follow-up cadence, and prepare call briefs without auto-sending.",
+  "author": {
+    "name": "BrightWay AI",
+    "url": "https://brightwayai.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/BrightWayAI/lead-engine",
+  "repository": "https://github.com/BrightWayAI/lead-engine",
+  "keywords": [
+    "nucleus",
+    "chatgpt",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Lead Engine",
+    "shortDescription": "Turn live buying signals into reviewable outreach drafts",
+    "longDescription": "Capture and score buying signals, research contacts, draft warm outreach, manage follow-up cadence, and prepare call briefs without auto-sending.",
+    "developerName": "BrightWay AI",
+    "category": "Sales",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/BrightWayAI/lead-engine",
+    "defaultPrompt": [
+      "Show my lead pipeline.",
+      "Draft a signal-based message for this person.",
+      "Prepare a pre-call brief."
+    ]
+  }
+}

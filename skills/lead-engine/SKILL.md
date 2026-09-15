@@ -3,6 +3,16 @@ name: lead-engine
 description: Lead Engine — intent-based LinkedIn outreach system. Use whenever the user is working on a buying-signal-driven outreach play — capturing signals, warming prospects (comments + connection requests), drafting DMs in their voice, running a 3-touch follow-up cadence, generating pre-call briefs, or logging sends/replies to their CRM. Triggers on phrases like "draft a DM for this signal", "warm up [name] before I message them", "draft a connection request", "what should I send to [name]", "who should I follow up with today", "log this reply", "pre-call brief for [name]", "pull fresh signals from Apollo", "I just saw [X] commented on a post about [Y]". Also fires when the user runs any /lead-* command.
 ---
 
+<!-- OPENAI-ADAPTER:START -->
+## OpenAI host binding
+
+Before acting, read `../../references/openai-portability.md`. That file translates
+host-specific tools, agents, artifacts, scheduling, connectors, and config-root
+access for ChatGPT and Codex. It overrides concrete Claude/Cowork tool names only;
+the workflow, safety gates, and output contract in this skill remain canonical.
+<!-- OPENAI-ADAPTER:END -->
+
+
 # Lead Engine
 
 This skill is the brain behind the `/lead-*` commands. The commands are entry points; this skill carries the *methodology*, the *7 signals*, the *voice rules*, and the *cadence logic*. Every command reads this skill and the reference files for context before acting.
@@ -22,8 +32,8 @@ Before you draft, capture, or log anything, **read in this order**:
 1. `<config-root>/plugins/lead-engine.user-context.md` — the user's company, ICP, voice, value-adds, tools, cadence preferences. If this file is missing or contains the placeholder, tell the user to run `/lead-setup` first and stop.
 2. `references/seven-signals.md` — the canonical 7-signal taxonomy with the prompts for classifying each.
 3. `references/voice-rules.md` — banned phrases, tone-matching rules, length caps, the 27-word opener pattern.
-4. `references/pipeline.md` — current active signals.
-5. `references/sent-log.md` — what's been sent and when (drives follow-up timing).
+4. `<config-root>/plugins/lead-engine.pipeline.md` — current active signals.
+5. `<config-root>/plugins/lead-engine.sent-log.md` — what's been sent and when (drives follow-up timing).
 
 Don't skip these. Generic outreach is what we're trying to *not* produce.
 
@@ -104,8 +114,8 @@ If the reply is *neutral / question*, draft a context-aware response — DON'T f
 
 ## Files this skill writes to
 
-- `references/pipeline.md` — current state of every signal.
-- `references/sent-log.md` — append-only history.
+- `<config-root>/plugins/lead-engine.pipeline.md` — current state of every signal.
+- `<config-root>/plugins/lead-engine.sent-log.md` — append-only history.
 - (CRM, if connected, via the appropriate MCP tools.)
 
 The user-context, seven-signals, voice-rules, and rollout-plan references are *read-only at runtime* — only `/lead-setup` modifies them.
