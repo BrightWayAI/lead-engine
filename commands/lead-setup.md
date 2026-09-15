@@ -40,14 +40,14 @@ Once provided:
 
 ### C — Read shared identity
 
-Read `<config-root>/identity.md` (cortex's `/setup-identity` output).
+Read `<config-root>/memory/me/identity.md` (cortex's `/setup-identity` output).
 
 - **Exists and populated** → pre-fill Q1 (Company name), Q2 (Company website), and role/identity follow-ups from those values. The auto-research step still runs to enrich Q3 (positioning) and Q4 (products).
 - **Missing** → offer to run `/setup-identity` first or proceed inline.
 
 ### D — Read shared voice
 
-Read `<config-root>/voice.md` (cortex's `/setup-voice` output).
+Read `<config-root>/memory/me/voice.md` (cortex's `/setup-voice` output).
 
 - **Exists and populated** → pre-fill voice questions (banned phrases, tone, sign-off). Plugin-specific voice rules (the 27-word opener pattern, signal-tied openers) stay in this plugin's references.
 - **Missing** → offer to run `/setup-voice` first or proceed inline.
